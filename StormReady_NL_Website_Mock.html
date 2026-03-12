@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StormReady NL — Winter Home Safety</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:    #1F3864;
+    --navy2:   #162a4e;
+    --blue:    #2E75B6;
+    --ice:     #D5E8F0;
+    --snow:    #F4F8FB;
+    --white:   #FFFFFF;
+    --slate:   #4A5568;
+    --gold:    #C9A84C;
+    --text:    #1a2535;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 68px;
+    border-bottom: 2px solid var(--blue);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 38px; height: 38px;
+    background: var(--blue);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: white;
+  }
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 700;
+    color: white; letter-spacing: 0.01em;
+  }
+  .logo-text span { color: var(--ice); }
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px; font-weight: 500;
+    color: var(--ice); text-decoration: none;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    opacity: 0.85; transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px; font-weight: 600;
+    background: var(--gold); color: var(--navy2);
+    padding: 10px 22px; border-radius: 4px;
+    text-decoration: none; letter-spacing: 0.05em;
+    text-transform: uppercase; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #e0b95a; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--navy2) 0%, var(--navy) 45%, #254f8a 100%);
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+    padding-top: 68px;
+  }
+
+  /* Snow particles */
+  .snowflakes {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none; overflow: hidden;
+  }
+  .sf {
+    position: absolute;
+    width: 5px; height: 5px;
+    background: white; border-radius: 50%;
+    opacity: 0;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(-20px) translateX(0);  opacity: 0; }
+    10%  { opacity: 0.4; }
+    90%  { opacity: 0.2; }
+    100% { transform: translateY(100vh) translateX(40px); opacity: 0; }
+  }
+
+  /* decorative wave at bottom of hero */
+  .hero-wave {
+    position: absolute; bottom: -2px; left: 0; right: 0;
+  }
+
+  .hero-inner {
+    flex: 1; display: flex; align-items: center;
+    max-width: 1180px; margin: 0 auto;
+    padding: 80px 48px 120px;
+    gap: 60px;
+  }
+  .hero-left { flex: 1; }
+  .hero-badge {
+    display: inline-block;
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px; font-weight: 600;
+    color: var(--gold); letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid var(--gold);
+    padding: 5px 14px; border-radius: 20px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 62px);
+    font-weight: 900; color: white;
+    line-height: 1.08; margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--ice);
+  }
+  .hero-sub {
+    font-size: 18px; line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300; margin-bottom: 40px;
+    max-width: 480px;
+  }
+  .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px; font-weight: 600;
+    background: var(--gold); color: var(--navy2);
+    padding: 15px 32px; border-radius: 4px;
+    text-decoration: none; letter-spacing: 0.04em;
+    transition: transform 0.15s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #e0b95a; transform: translateY(-1px); }
+  .btn-secondary {
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px; font-weight: 500;
+    background: transparent; color: white;
+    padding: 15px 32px; border-radius: 4px;
+    text-decoration: none; letter-spacing: 0.04em;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: white; background: rgba(255,255,255,0.06); }
+
+  .hero-right {
+    flex: 0 0 400px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px; padding: 36px;
+    backdrop-filter: blur(10px);
+  }
+  .hero-right h3 {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px;
+  }
+  .stat-row {
+    display: flex; gap: 16px; margin-bottom: 20px;
+  }
+  .stat-box {
+    flex: 1; background: rgba(255,255,255,0.07);
+    border-radius: 10px; padding: 18px 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 700;
+    color: white; line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px; color: rgba(255,255,255,0.55);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .hero-tagline {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-family: 'Playfair Display', serif;
+    font-size: 19px; font-style: italic;
+    color: var(--ice); text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: var(--snow);
+    border-top: 1px solid var(--ice);
+    border-bottom: 1px solid var(--ice);
+    padding: 20px 48px;
+    display: flex; align-items: center;
+    justify-content: center; gap: 48px;
+    flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--navy); letter-spacing: 0.03em;
+  }
+  .trust-icon { font-size: 18px; }
+
+  /* ── SERVICES ── */
+  .section { padding: 100px 48px; max-width: 1180px; margin: 0 auto; }
+  .section-label {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700; color: var(--navy);
+    line-height: 1.15; margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 17px; color: var(--slate);
+    line-height: 1.7; max-width: 560px;
+    font-weight: 300; margin-bottom: 56px;
+  }
+  .plans-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .plan-card {
+    border-radius: 14px;
+    border: 2px solid var(--ice);
+    padding: 36px 30px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; background: white;
+  }
+  .plan-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(31,56,100,0.1); }
+  .plan-card.featured {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: white;
+  }
+  .plan-badge {
+    position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: var(--navy2);
+    font-family: 'Barlow', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 14px; border-radius: 20px;
+  }
+  .plan-tier {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 10px;
+  }
+  .plan-card.featured .plan-tier { color: var(--ice); }
+  .plan-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px; font-weight: 700;
+    color: var(--navy); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .plan-card.featured .plan-price { color: white; }
+  .plan-period {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px; color: var(--slate);
+    margin-bottom: 28px;
+  }
+  .plan-card.featured .plan-period { color: rgba(255,255,255,0.55); }
+  .plan-features { list-style: none; margin-bottom: 32px; }
+  .plan-features li {
+    font-size: 14px; line-height: 1.5;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--ice);
+    display: flex; gap: 10px; align-items: flex-start;
+    color: var(--slate);
+  }
+  .plan-card.featured .plan-features li {
+    color: rgba(255,255,255,0.75);
+    border-bottom-color: rgba(255,255,255,0.1);
+  }
+  .plan-features li::before { content: "✓"; color: var(--blue); font-weight: 700; flex-shrink: 0; }
+  .plan-card.featured .plan-features li::before { color: var(--gold); }
+  .btn-plan {
+    display: block; text-align: center;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px; font-weight: 600;
+    padding: 13px; border-radius: 6px;
+    text-decoration: none; letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--ice); color: var(--navy);
+    transition: background 0.2s;
+  }
+  .btn-plan:hover { background: #b8d8eb; }
+  .plan-card.featured .btn-plan {
+    background: var(--gold); color: var(--navy2);
+  }
+  .plan-card.featured .btn-plan:hover { background: #e0b95a; }
+
+  /* ── WHY US ── */
+  .why-section {
+    background: var(--snow);
+    border-top: 1px solid var(--ice);
+    border-bottom: 1px solid var(--ice);
+    padding: 100px 48px;
+  }
+  .why-inner { max-width: 1180px; margin: 0 auto; }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px;
+    margin-top: 56px;
+  }
+  .why-card {
+    background: white; border-radius: 12px;
+    padding: 32px; border: 1px solid var(--ice);
+    display: flex; gap: 20px;
+  }
+  .why-icon {
+    width: 50px; height: 50px; flex-shrink: 0;
+    background: var(--navy); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .why-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px; font-weight: 700;
+    color: var(--navy); margin-bottom: 8px;
+  }
+  .why-card p {
+    font-size: 14px; line-height: 1.7;
+    color: var(--slate); font-weight: 300;
+  }
+
+  /* ── STORM STAT ── */
+  .storm-section {
+    background: var(--navy);
+    padding: 80px 48px;
+    text-align: center;
+  }
+  .storm-inner { max-width: 900px; margin: 0 auto; }
+  .storm-section .section-label { color: var(--gold); }
+  .storm-section .section-title { color: white; margin-bottom: 20px; }
+  .storm-section p {
+    color: rgba(255,255,255,0.65); font-size: 17px;
+    line-height: 1.7; font-weight: 300; margin-bottom: 40px;
+  }
+  .storm-stats {
+    display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+    margin-top: 48px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .storm-stat .stat-num { font-size: 52px; color: white; }
+  .storm-stat .stat-label { color: rgba(255,255,255,0.45); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy2);
+    padding: 60px 48px 32px;
+    border-top: 3px solid var(--blue);
+  }
+  .footer-inner {
+    max-width: 1180px; margin: 0 auto;
+    display: flex; gap: 60px; flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .footer-brand { flex: 1.5; }
+  .footer-brand .logo-text { font-size: 22px; display: block; margin-bottom: 14px; }
+  .footer-brand p {
+    font-size: 13px; color: rgba(255,255,255,0.45);
+    line-height: 1.7; max-width: 280px; font-weight: 300;
+  }
+  .footer-col h5 {
+    font-family: 'Barlow', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ice); margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a {
+    font-size: 13px; color: rgba(255,255,255,0.45);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: white; }
+  .footer-bottom {
+    max-width: 1180px; margin: 0 auto;
+    padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px; color: rgba(255,255,255,0.3);
+  }
+  .footer-bottom span { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-mark">⌂</div>
+    <span class="logo-text">StormReady <span>NL</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Pricing</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Get Started</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="snowflakes" id="snow"></div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">Serving the Avalon Peninsula</div>
+      <h1>Your home.<br>Every storm.<br><em>Taken care of.</em></h1>
+      <p class="hero-sub">NL's only subscription-based winter home safety service. One annual plan covers inspections, storm clearing, furnace checks, and emergency call-outs — all winter long.</p>
+      <div class="hero-buttons">
+        <a href="#" class="btn-primary">View Our Plans</a>
+        <a href="#" class="btn-secondary">Book a Free Inspection</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <h3>Why StormReady NL?</h3>
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-num">335</div>
+          <div class="stat-label">cm avg snowfall/yr</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">9+</div>
+          <div class="stat-label">major storms/season</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-num">$7,100</div>
+          <div class="stat-label">avg water damage cost</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">$449</div>
+          <div class="stat-label">starting per year</div>
+        </div>
+      </div>
+      <div class="hero-tagline">"Because this is Newfoundland."</div>
+    </div>
+  </div>
+
+  <svg class="hero-wave" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 60L60 50C120 40 240 20 360 15C480 10 600 20 720 28C840 36 960 40 1080 38C1200 36 1320 28 1380 24L1440 20V60H0Z" fill="#ffffff"/>
+  </svg>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">✓</span> Certified & Bonded Technicians</div>
+  <div class="trust-item"><span class="trust-icon">✓</span> Satisfaction Guaranteed</div>
+  <div class="trust-item"><span class="trust-icon">✓</span> Locally Operated in NL</div>
+  <div class="trust-item"><span class="trust-icon">✓</span> Storm Clearing on All Plans</div>
+  <div class="trust-item"><span class="trust-icon">✓</span> No Hidden Fees</div>
+</div>
+
+<!-- PLANS -->
+<div class="section">
+  <div class="section-label">Subscription Plans</div>
+  <h2 class="section-title">One plan. All winter. Peace of mind.</h2>
+  <p class="section-sub">Every StormReady NL subscription includes snow and ice clearing after every major storm — plus a range of safety services built for NL winters.</p>
+
+  <div class="plans-grid">
+    <!-- Essential -->
+    <div class="plan-card">
+      <div class="plan-tier">Essential</div>
+      <div class="plan-price">$449</div>
+      <div class="plan-period">per year &nbsp;·&nbsp; ~$37/month</div>
+      <ul class="plan-features">
+        <li>Snow & ice clearing after every major storm</li>
+        <li>Pre-winter home inspection</li>
+        <li>Pipe insulation check</li>
+        <li>One emergency call-out</li>
+        <li>Seasonal member survey</li>
+        <li>Digital winter safety checklist</li>
+      </ul>
+      <a href="#" class="btn-plan">Choose Essential</a>
+    </div>
+
+    <!-- Standard (featured) -->
+    <div class="plan-card featured">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-tier">Standard</div>
+      <div class="plan-price">$699</div>
+      <div class="plan-period">per year &nbsp;·&nbsp; ~$58/month</div>
+      <ul class="plan-features">
+        <li>Everything in Essential</li>
+        <li>Furnace efficiency check</li>
+        <li>Full weatherstripping</li>
+        <li>Gutter clearing</li>
+        <li>Annual service report</li>
+        <li>Customer portal & app access</li>
+      </ul>
+      <a href="#" class="btn-plan">Choose Standard</a>
+    </div>
+
+    <!-- Premium -->
+    <div class="plan-card">
+      <div class="plan-tier">Premium</div>
+      <div class="plan-price">$1,249</div>
+      <div class="plan-period">per year &nbsp;·&nbsp; ~$104/month</div>
+      <ul class="plan-features">
+        <li>Everything in Standard</li>
+        <li>Priority emergency response</li>
+        <li>24-hour emergency hotline</li>
+        <li>Unlimited emergency call-outs</li>
+        <li>End-of-season damage assessment</li>
+        <li>First priority scheduling</li>
+      </ul>
+      <a href="#" class="btn-plan">Choose Premium</a>
+    </div>
+  </div>
+</div>
+
+<!-- WHY US -->
+<section class="why-section">
+  <div class="why-inner">
+    <div class="section-label">Why StormReady NL</div>
+    <h2 class="section-title">Built for NL winters.<br>Built for NL homeowners.</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🏠</div>
+        <div>
+          <h4>Proactive, Not Reactive</h4>
+          <p>We inspect and prepare your home before the first storm hits — not after something breaks. That's the difference between peace of mind and an expensive emergency.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">❄️</div>
+        <div>
+          <h4>Storm Clearing Included</h4>
+          <p>Every plan includes snow and ice clearing after every major storm across the Avalon Peninsula. No per-visit fees, no scrambling to find someone when you need it most.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔧</div>
+        <div>
+          <h4>Certified Local Technicians</h4>
+          <p>All our technicians are certified, background-checked, bonded, and uniformed. They know NL winters because they live here too.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💰</div>
+        <div>
+          <h4>One Burst Pipe Costs More</h4>
+          <p>A single water damage incident in NL averages $4,390–$7,100 CAD. Our Standard plan at $699 costs less than one quarter of that — and prevents it from happening.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORM STATS -->
+<section class="storm-section">
+  <div class="storm-inner">
+    <div class="section-label">The NL Winter Reality</div>
+    <h2 class="section-title">St. John's is one of the snowiest cities in Canada.</h2>
+    <p>On March 8, 2024, St. John's set an all-time daily snowfall record of 53 cm in a single day. The 2024–2025 winter saw Paradise receive over 150 cm in a single week. This is not unusual — it is Newfoundland.</p>
+    <a href="#" class="btn-primary">See How We Help</a>
+    <div class="storm-stats">
+      <div class="storm-stat">
+        <div class="stat-num">335 cm</div>
+        <div class="stat-label">Average annual snowfall</div>
+      </div>
+      <div class="storm-stat">
+        <div class="stat-num">114 days</div>
+        <div class="stat-label">Snow on ground per year</div>
+      </div>
+      <div class="storm-stat">
+        <div class="stat-num">25.2%</div>
+        <div class="stat-label">NL population aged 65+</div>
+      </div>
+      <div class="storm-stat">
+        <div class="stat-num">75.7%</div>
+        <div class="stat-label">NL homeownership rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-text" style="font-family:'Playfair Display',serif;color:white;">StormReady <span style="color:#D5E8F0;">NL</span></span>
+      <p>Winter home safety and maintenance for Newfoundland homeowners. Serving the Avalon Peninsula — St. John's, Mount Pearl, Paradise, and Conception Bay South.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#">Essential Plan</a></li>
+        <li><a href="#">Standard Plan</a></li>
+        <li><a href="#">Premium Plan</a></li>
+        <li><a href="#">Emergency Call-Out</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Technicians</a></li>
+        <li><a href="#">Service Areas</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="#">📞 1-709-555-0190</a></li>
+        <li><a href="#">✉️ hello@stormreadynl.ca</a></li>
+        <li><a href="#">St. John's, NL</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span style="color:rgba(255,255,255,0.3)">© 2025 StormReady NL. All rights reserved.</span>
+    <span>"Because this is Newfoundland."</span>
+  </div>
+</footer>
+
+<script>
+  // Generate snowflakes
+  const container = document.getElementById('snow');
+  for (let i = 0; i < 40; i++) {
+    const sf = document.createElement('div');
+    sf.className = 'sf';
+    sf.style.left = Math.random() * 100 + '%';
+    sf.style.width = sf.style.height = (Math.random() * 4 + 2) + 'px';
+    sf.style.animationDuration = (Math.random() * 8 + 6) + 's';
+    sf.style.animationDelay = (Math.random() * 10) + 's';
+    sf.style.opacity = Math.random() * 0.4;
+    container.appendChild(sf);
+  }
+</script>
+</body>
+</html>
